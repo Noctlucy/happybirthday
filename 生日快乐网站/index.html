@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>生日快乐 💕</title>
+    <!-- 引入在线手书字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Liu+Jian+Mao+Cao&family=Long+Cang&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF0F5 50%, #E6E6FA 100%);
+        }
+
+        /* 滚动容器 */
+        .scroll-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 锁定滚动 */
+        .scroll-container.locked {
+            overflow-y: hidden;
+        }
+
+        /* 每一屏的基础样式 */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            scroll-snap-align: start;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 固定彩带装饰 - 顶部 */
+        .ribbon-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    #FF69B4 0px,
+                    #FF69B4 20px,
+                    #FFB6C1 20px,
+                    #FFB6C1 40px,
+                    #FFC0CB 40px,
+                    #FFC0CB 60px,
+                    #FFE4E1 60px,
+                    #FFE4E1 80px,
+                    #87CEEB 80px,
+                    #87CEEB 100px,
+                    #FFD700 100px,
+                    #FFD700 120px
+                );
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        /* 固定彩带装饰 - 底部 */
+        .ribbon-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 15px;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    #FF69B4 0px,
+                    #FF69B4 20px,
+                    #FFB6C1 20px,
+                    #FFB6C1 40px,
+                    #FFC0CB 40px,
+                    #FFC0CB 60px,
+                    #FFE4E1 60px,
+                    #FFE4E1 80px,
+                    #87CEEB 80px,
+                    #87CEEB 100px,
+                    #FFD700 100px,
+                    #FFD700 120px
+                );
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        /* 固定彩带装饰 - 左侧 */
+        .ribbon-left {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 100vh;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    #FF69B4 0px,
+                    #FF69B4 20px,
+                    #FFB6C1 20px,
+                    #FFB6C1 40px,
+                    #FFC0CB 40px,
+                    #FFC0CB 60px,
+                    #FFE4E1 60px,
+                    #FFE4E1 80px,
+                    #87CEEB 80px,
+                    #87CEEB 100px,
+                    #FFD700 100px,
+                    #FFD700 120px
+                );
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        /* 固定彩带装饰 - 右侧 */
+        .ribbon-right {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 15px;
+            height: 100vh;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    #FF69B4 0px,
+                    #FF69B4 20px,
+                    #FFB6C1 20px,
+                    #FFB6C1 40px,
+                    #FFC0CB 40px,
+                    #FFC0CB 60px,
+                    #FFE4E1 60px,
+                    #FFE4E1 80px,
+                    #87CEEB 80px,
+                    #87CEEB 100px,
+                    #FFD700 100px,
+                    #FFD700 120px
+                );
+            z-index: 1000;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 封面页 */
+        .cover {
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 50%, #FFC0CB 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover h1 {
+            font-family: 'Ma Shan Zheng', 'Long Cang', 'Liu Jian Mao Cao', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            animation: slideDown 1s ease-out;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-weight: normal;
+            letter-spacing: 5px;
+        }
+
+        /* SVG 标题图片 */
+        .title-svg {
+            width: 80%;
+            max-width: 400px;
+            height: auto;
+            margin-left:30px;
+            margin-bottom: 20px;
+            animation: slideDown 1s ease-out;
+            filter: drop-shadow(0px 0px 15px rgb(255, 136, 185));
+        }
+
+        /* HAPPY BIRTHDAY 小字 */
+        .subtitle-en {
+            position: absolute;
+            top: 20%;
+            left: 40%;
+            transform: translate(-50%, 50px);
+            font-family: 'Georgia', serif;
+            font-size: 0.5rem;
+            color: #4A90E2;
+            letter-spacing: 8px;
+            font-weight: 300;
+            opacity: 0.85;
+            animation: slideDown 1s ease-out 0.3s backwards;
+            text-shadow: 1px 1px 2px rgba(74, 144, 226, 0.3);
+        }
+
+        .cover p {
+            font-family: 'Ma Shan Zheng', 'Zhi Mang Xing', cursive;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            animation: slideDown 1s ease-out 0.5s backwards;
+            letter-spacing: 3px;
+        }
+
+        /* 开启按钮 */
+        .start-button {
+            margin-top: 40px;
+            padding: 15px 50px;
+            font-family: 'Ma Shan Zheng', 'Microsoft YaHei', sans-serif;
+            font-size: 1.3rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #FF69B4;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            animation: slideDown 1s ease-out 1s backwards, pulse 2s ease-in-out 2s infinite;
+            transition: all 0.3s ease;
+            letter-spacing: 3px;
+        }
+
+        .start-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .start-button:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* 蛋糕图片 */
+        .cake-image {
+            margin-top: 100px;
+            width: 250px;
+            height: auto;
+            animation: slideDown 1s ease-out 1.5s backwards, float 3s ease-in-out 2.5s infinite;
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 飘落的爱心 */
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: fall linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* 开场白 */
+        .intro {
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFE5E5 100%);
+        }
+
+        .intro-text {
+            max-width: 90%;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5C5C5C;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+            /* 磨砂玻璃效果 */
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 30px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.2),
+                        0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 照片页 */
+        .photo-section {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 90%;
+            animation: zoomIn 0.8s ease-out;
+            /* 磨砂玻璃效果 */
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 20px;
+            padding: 25px 20px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3), 
+                        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .photo-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 182, 193, 0.4), 
+                        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .photo-container img {
+            max-width: 100%;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            will-change: transform;
+        }
+
+        /* 照片悬浮放大效果 */
+        .photo-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 105, 180, 0.3),
+                        0 0 20px rgba(255, 182, 193, 0.4);
+        }
+
+        /* 照片点击放大效果 */
+        .photo-container img:active {
+            transform: scale(1.08);
+        }
+
+        .photo-caption {
+            font-size: 1rem;
+            color: #5C5C5C;
+            text-align: center;
+            line-height: 1.6;
+            padding: 0 10px;
+            animation: fadeInUp 1s ease-out 0.5s backwards;
+            will-change: transform;
+        }
+
+        /* 祝福页 */
+        .blessing {
+            background: linear-gradient(135deg, #FF69B4 0%, #FFB6C1 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .blessing-content {
+            max-width: 90%;
+            animation: fadeInUp 1s ease-out;
+            /* 磨砂玻璃效果 */
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        }
+
+        .blessing h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .blessing-text {
+            font-size: 1.05rem;
+            line-height: 2;
+            white-space: pre-line;
+            opacity: 1;
+        }
+
+        /* 打字机光标效果 */
+        .blessing-text.typing::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% {
+                opacity: 1;
+            }
+            51%, 100% {
+                opacity: 0;
+            }
+        }
+
+        /* 庆祝按钮 */
+        .celebrate-button {
+            margin-top: 40px;
+            padding: 15px 45px;
+            font-family: 'Ma Shan Zheng', 'Microsoft YaHei', sans-serif;
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.95);
+            color: #FF69B4;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            letter-spacing: 3px;
+            animation: fadeInUp 1s ease-out 0.6s backwards, pulse 2s ease-in-out 1.6s infinite;
+        }
+
+        .celebrate-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .celebrate-button:active {
+            transform: scale(0.95);
+        }
+
+        .celebrate-button.hidden {
+            display: none;
+        }
+
+        /* 烟花容器 */
+        .fireworks-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            display: none;
+        }
+
+        .fireworks-container.active {
+            display: block;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            animation: explode 3s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* 手写签名区域 */
+        .signature-section {
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+        }
+
+        .signature-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .signature-text {
+            font-family: 'Long Cang', cursive;
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-align: right;
+            margin-bottom: 10px;
+            animation: writeSignature 2s ease-out forwards;
+        }
+
+        @keyframes writeSignature {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .signature-date {
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: right;
+            letter-spacing: 2px;
+        }
+
+        .signature-stamp {
+            width: 60px;
+            height: 60px;
+            margin: 20px 0 0 auto;
+            opacity: 0;
+            animation: stampAppear 0.5s ease-out 2s forwards;
+        }
+
+        @keyframes stampAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-45deg);
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .final-message {
+            margin-top: 30px;
+            font-family: 'Ma Shan Zheng', 'Microsoft YaHei', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 3s forwards;
+        }
+
+        /* 音乐控制器 */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .music-icon {
+            font-size: 1.5rem;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 375px) {
+            .cover h1 {
+                font-size: 2rem;
+            }
+            .blessing h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定彩带装饰 -->
+    <div class="ribbon-top"></div>
+    <div class="ribbon-bottom"></div>
+    <div class="ribbon-left"></div>
+    <div class="ribbon-right"></div>
+
+    <!-- 音乐控制器 -->
+    <div class="music-control" id="musicControl">
+        <span class="music-icon">🎵</span>
+    </div>
+    <!-- 封面音乐 -->
+    <audio id="coverMusic">
+        <source src="assets/生日快乐.mp3" type="audio/mpeg">
+    </audio>
+    <!-- 背景音乐 -->
+    <audio id="bgMusic" loop>
+        <source src="assets/大城小爱.mp3" type="audio/mpeg">
+    </audio>
+    <!-- 烟花音效 -->
+    <audio id="fireworksSound">
+        <source src="assets/fireworks.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="scroll-container">
+        <!-- 第1屏：封面 -->
+        <section class="cover">
+            <img src="assets/生日快乐.svg" alt="生日快乐" class="title-svg">
+            <span class="subtitle-en">HAPPY BIRTHDAY</span>
+            <p>今天为你准备了一份特别的礼物</p>
+            <button class="start-button" id="startButton">开启生日礼 🎁</button>
+            <img src="assets/cake.png" alt="生日蛋糕" class="cake-image">
+            <!-- 飘落的爱心 -->
+            <div class="heart" style="left: 10%; animation-duration: 5s; animation-delay: 0s;">❤️</div>
+            <div class="heart" style="left: 30%; animation-duration: 6s; animation-delay: 1s;">💕</div>
+            <div class="heart" style="left: 50%; animation-duration: 7s; animation-delay: 2s;">💖</div>
+            <div class="heart" style="left: 70%; animation-duration: 5.5s; animation-delay: 1.5s;">💗</div>
+            <div class="heart" style="left: 90%; animation-duration: 6.5s; animation-delay: 0.5s;">💝</div>
+        </section>
+
+        <!-- 第2屏：开场白 -->
+        <section class="intro">
+            <div class="intro-text">
+                又是一年，时光匆匆<br><br>
+                这一年里，我们一起经历了好多美好的瞬间<br><br>
+                今天，想用这些照片<br>
+                和你一起重温我们的故事... 
+            </div>
+        </section>
+
+        <!-- 第3屏：第一次来武汉吃的店 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/第一次来武汉吃的店.jpg" alt="第一次来武汉" loading="lazy">
+                <div class="photo-caption">
+                    第一次来武汉，带你去吃好吃的<br>
+                    看着你开心的样子，我就知道<br>
+                    这就是我想要的幸福 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第4屏：在地铁上拍的照 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在地铁上拍的照.jpg" alt="地铁上的照片" loading="lazy">
+                <div class="photo-caption">
+                    和你在一起<br>
+                    连坐地铁都变得浪漫 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第5屏：在解放公园练功 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在解放公园练功.jpg" alt="解放公园练功" loading="lazy">
+                <div class="photo-caption">
+                    陪你练功的每一天<br>
+                    都是我珍藏的宝藏 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第6屏：在解放公园练功回去路上 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在解放公园练功回去路上.jpg" alt="练功回去路上" loading="lazy">
+                <div class="photo-caption">
+                    练完功一起回家的路<br>
+                    希望能一直这样走下去 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第7屏：某天练功结束 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/某天练功结束.jpg" alt="练功结束" loading="lazy">
+                <div class="photo-caption">
+                    看着你练功后满足的笑容<br>
+                    我的心都融化了 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第8屏：吃自助 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/吃自助.jpg" alt="吃自助" loading="lazy">
+                <div class="photo-caption">
+                    和你一起吃自助<br>
+                    每一口都是甜的 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第9屏：吃心心念念的烧烤 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/吃心心念念的烧烤.JPG" alt="吃烧烤" loading="lazy">
+                <div class="photo-caption">
+                    终于吃到心心念念的烧烤啦！<br>
+                    看你开心，我比吃到美食还开心 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第10屏：一起刷墙 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/一起刷墙.jpg" alt="一起刷墙" loading="lazy">
+                <div class="photo-caption">
+                    一起刷墙的日子<br>
+                    累并快乐着
+                </div>
+            </div>
+        </section>
+
+        <!-- 第11屏：一起刷墙的合影 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/一起刷墙的合影.jpg" alt="刷墙合影" loading="lazy">
+                <div class="photo-caption">
+                    虽然累得不行<br>
+                    但和你一起完成的事，都变得有意义 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第12屏：在中转时溜出去赤壁游玩 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在中转时溜出去赤壁游玩.JPG" alt="赤壁游玩" loading="lazy">
+                <div class="photo-caption">
+                    中转时的小冒险<br>
+                    和你在一起，哪里都是风景 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第13屏：赤壁拍照2 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/赤壁拍照2.JPG" alt="赤壁拍照" loading="lazy">
+                <div class="photo-caption">
+                    赤壁的阳光，你的笑容<br>
+                    都定格在这一刻 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第14屏：在天空之镜拍的照片 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在天空之镜拍的照片.JPG" alt="天空之镜" loading="lazy">
+                <div class="photo-caption">
+                    天空之镜<br>
+                    倒映出你最美的样子 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第15屏：在龟山拍的照 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在龟山拍的照.jpg" alt="龟山拍照" loading="lazy">
+                <div class="photo-caption">
+                    和你一起爬山，一起看风景<br>
+                    未来还有更多山要一起爬 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第16屏：在梦时代拍的照 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/在梦时代拍的照.jpg" alt="梦时代" loading="lazy">
+                <div class="photo-caption">
+                    牵着你的手逛街<br>
+                    这就是我想要的岁月静好 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第17屏：拍女朋友爬树 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/拍女朋友爬树.png" alt="爬树" loading="lazy">
+                <div class="photo-caption">
+                    哈哈，你爬树太好玩啦！<br>
+                    你的每一面我都喜欢 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第18屏：偷偷摄影 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/偷偷摄影.JPG" alt="偷偷摄影" loading="lazy">
+                <div class="photo-caption">
+                    偷偷拍下你的样子<br>
+                    想把你的每个瞬间都记录下来 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第19屏：恶搞 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/恶搞.jpg" alt="恶搞" loading="lazy">
+                <div class="photo-caption">
+                    和你在一起<br>
+                    总是充满欢笑和惊喜 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第20屏：恶搞2 -->
+        <section class="photo-section">
+            <div class="photo-container">
+                <img src="assets/恶搞2.jpg" alt="恶搞2" loading="lazy">
+                <div class="photo-caption">
+                    谢谢有你的陪伴<br>
+                    不管是什么样子我都喜欢 
+                </div>
+            </div>
+        </section>
+
+        <!-- 第21屏：生日祝福 -->
+        <section class="blessing">
+            <div class="blessing-content">
+                <h2>生日快乐，我最爱的人</h2>
+                <div class="blessing-text">
+亲爱的，
+
+在这相遇的半年，我们一起经历了这么多美好的时刻
+每一张照片，都是我们爱情的见证
+每一个回忆，都是我心中的珍宝
+
+今天是你的生日
+我想对你说：
+
+谢谢你陪在我身边
+谢谢你让我的生活充满阳光
+谢谢你，愿意和我一起创造更多回忆
+
+未来的日子，我还想和你一起
+吃更多美食，去更多地方
+拍更多照片，留下更多故事
+
+生日快乐！
+爱你，永远 💕
+                </div>
+                <button class="celebrate-button" id="celebrateBtn">点击庆祝 🎉</button>
+                
+                <!-- 手写签名区域 -->
+                <div class="signature-section" id="signatureSection">
+                    <div class="signature-text">—— 叶奕诺</div>
+                    <div class="signature-date">2025.10.29</div>
+                    <div class="final-message">未完待续...更多美好在路上 💫</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 烟花容器 -->
+    <div class="fireworks-container" id="fireworksContainer"></div>
+
+    <script>
+        // 初始化：锁定滚动
+        const scrollContainer = document.querySelector('.scroll-container');
+        scrollContainer.classList.add('locked');
+
+        // 获取音乐元素
+        const coverMusic = document.getElementById('coverMusic');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        let isPlaying = false;
+        let currentMusic = 'cover'; // 'cover' 或 'background'
+        let coverMusicStarted = false; // 标记封面音乐是否已开始
+
+        // 尝试在页面加载后自动播放封面音乐
+        window.addEventListener('load', function() {
+            coverMusic.play().then(() => {
+                console.log('封面音乐自动播放成功');
+                musicControl.classList.add('playing');
+                isPlaying = true;
+                coverMusicStarted = true;
+            }).catch(e => {
+                console.log('封面音乐需要用户交互才能播放');
+                // 不执行任何操作，等待用户点击封面或音乐按钮
+            });
+        });
+
+        // 监听封面区域的点击，启动封面音乐
+        const coverSection = document.querySelector('.cover');
+        coverSection.addEventListener('click', function(e) {
+            // 如果点击的不是按钮且封面音乐还未开始，则播放
+            if (!coverMusicStarted && !e.target.closest('.start-button')) {
+                coverMusic.play().then(() => {
+                    console.log('封面音乐开始播放');
+                    musicControl.classList.add('playing');
+                    isPlaying = true;
+                    coverMusicStarted = true;
+                }).catch(err => console.log('播放失败:', err));
+            }
+        });
+
+        // 开启生日礼按钮
+        const startButton = document.getElementById('startButton');
+
+        startButton.addEventListener('click', function() {
+            // 如果封面音乐还未开始，先播放一下再切换（确保用户交互）
+            if (!coverMusicStarted) {
+                coverMusic.play().then(() => {
+                    coverMusic.pause();
+                    coverMusic.currentTime = 0;
+                }).catch(e => console.log('初始化失败:', e));
+            } else {
+                // 停止封面音乐
+                coverMusic.pause();
+                coverMusic.currentTime = 0;
+            }
+
+            // 解锁滚动
+            scrollContainer.classList.remove('locked');
+            
+            // 平滑滚动到下一屏
+            scrollContainer.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+            
+            // 播放背景音乐
+            bgMusic.play().then(() => {
+                musicControl.classList.add('playing');
+                isPlaying = true;
+                currentMusic = 'background';
+                console.log('背景音乐开始播放');
+            }).catch(e => {
+                console.log('背景音乐播放失败:', e);
+            });
+        });
+
+        // 音乐控制按钮
+        musicControl.addEventListener('click', function(e) {
+            e.stopPropagation(); // 防止触发封面点击事件
+            
+            // 根据当前播放的音乐来控制
+            const activeMusic = currentMusic === 'background' ? bgMusic : coverMusic;
+            
+            if (!activeMusic.paused) {
+                activeMusic.pause();
+                musicControl.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                activeMusic.play().then(() => {
+                    musicControl.classList.add('playing');
+                    isPlaying = true;
+                    if (currentMusic === 'cover') {
+                        coverMusicStarted = true;
+                    }
+                }).catch(e => {
+                    console.log('音乐播放失败:', e);
+                });
+            }
+        });
+
+        // 监听滚动，添加更多动画效果
+        const sections = document.querySelectorAll('section');
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 1s ease-in forwards';
+                    
+                    // 如果是祝福页，启动打字机效果
+                    if (entry.target.classList.contains('blessing')) {
+                        const blessingText = entry.target.querySelector('.blessing-text');
+                        if (blessingText && !blessingText.dataset.typed) {
+                            blessingText.dataset.typed = 'true';
+                            typeWriter(blessingText);
+                        }
+                    }
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // 打字机效果函数
+        function typeWriter(element) {
+            const text = element.textContent;
+            element.textContent = '';
+            element.classList.add('typing');
+            let index = 0;
+            
+            const timer = setInterval(() => {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                } else {
+                    clearInterval(timer);
+                    element.classList.remove('typing');
+                }
+            }, 100); // 每50毫秒显示一个字符
+        }
+
+        // 视差滚动效果
+        let ticking = false;
+        
+        scrollContainer.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    applyParallaxEffect();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        function applyParallaxEffect() {
+            const scrollTop = scrollContainer.scrollTop;
+            const viewportHeight = window.innerHeight;
+            
+            // 获取所有照片容器
+            const photoSections = document.querySelectorAll('.photo-section');
+            
+            photoSections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top;
+                const sectionHeight = rect.height;
+                
+                // 只对可见区域附近的元素应用视差效果
+                if (sectionTop < viewportHeight && sectionTop > -sectionHeight) {
+                    const img = section.querySelector('img');
+                    const caption = section.querySelector('.photo-caption');
+                    
+                    if (img && caption) {
+                        // 计算元素在视口中的位置比例 (-1 到 1)
+                        const scrollProgress = (viewportHeight - sectionTop) / (viewportHeight + sectionHeight);
+                        
+                        // 照片向下移动得慢一些（视差效果）
+                        const imgOffset = (scrollProgress - 0.5) * -30;
+                        img.style.transform = `translateY(${imgOffset}px)`;
+                        
+                        // 文字向下移动得快一些
+                        const captionOffset = (scrollProgress - 0.5) * 20;
+                        caption.style.transform = `translateY(${captionOffset}px)`;
+                        
+                        // 根据滚动位置调整透明度，增强深度感
+                        const opacity = 1 - Math.abs(scrollProgress - 0.5) * 0.3;
+                        img.style.opacity = opacity;
+                    }
+                }
+            });
+
+            // 为开场白添加轻微视差
+            const introSection = document.querySelector('.intro');
+            if (introSection) {
+                const rect = introSection.getBoundingClientRect();
+                if (rect.top < viewportHeight && rect.top > -rect.height) {
+                    const introText = introSection.querySelector('.intro-text');
+                    if (introText) {
+                        const scrollProgress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+                        const offset = (scrollProgress - 0.5) * -20;
+                        introText.style.transform = `translateY(${offset}px)`;
+                    }
+                }
+            }
+        }
+
+        // 烟花和签名功能
+        const celebrateBtn = document.getElementById('celebrateBtn');
+        const fireworksContainer = document.getElementById('fireworksContainer');
+        const signatureSection = document.getElementById('signatureSection');
+        const fireworksSound = document.getElementById('fireworksSound');
+
+        let fireworksInterval = null; // 保存烟花定时器
+
+        celebrateBtn.addEventListener('click', function() {
+            // 隐藏按钮
+            celebrateBtn.classList.add('hidden');
+            
+            // 播放烟花音效
+            fireworksSound.play().then(() => {
+                console.log('烟花音效播放成功');
+            }).catch(e => {
+                console.log('烟花音效播放失败:', e);
+            });
+            
+            // 启动烟花
+            fireworksContainer.classList.add('active');
+            launchFireworks();
+            
+            // 3秒后显示签名
+            setTimeout(() => {
+                signatureSection.classList.add('show');
+            }, 3000);
+        });
+
+        // 烟花函数 - 持续发射
+        function launchFireworks() {
+            const colors = ['#FF69B4', '#FFB6C1', '#FFC0CB', '#87CEEB', '#FFD700', '#FF1493', '#00CED1'];
+            
+            // 持续发射烟花，不设置上限
+            fireworksInterval = setInterval(() => {
+                createFirework(colors);
+            }, 300); // 每0.4秒发射一朵
+        }
+
+        function createFirework(colors) {
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight * 0.7; // 上半部分
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.backgroundColor = color;
+                
+                const angle = (Math.PI * 2 * i) / particleCount;
+                const velocity = (100 + Math.random() * 100) * 2; // 半径增大2倍
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                
+                fireworksContainer.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 2500); // 与动画时长匹配
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 787.32 239.39">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: TsangerFeiBai-W05, TsangerFeiBai;
+        font-size: 150px;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(52.1 132.5)"><tspan x="0" y="0">生日快乐</tspan></text>
+  <path class="cls-2" d="m58.82,55.89c-22.08.54-51.51,17.25-53.87,40.99-1.66,30.2,40.66,51.14,63.87,63.01C41.96,151.01-2.12,130.14.08,96.46c2.66-25.93,34.62-43.37,58.74-40.57h0Z"/>
+  <path class="cls-2" d="m640.68,48.51c13.96-3.52,29.76-2.55,42.78,4.39,18.63,9.5,29.13,31.22,23.69,51.73-8.8,32.67-44.28,47.84-74.96,52.61-11.83,1.89-23.96,2.59-35.87,2.15,36.3-4.8,91.82-16.53,103.57-56.63,3.56-12.77.09-26.94-8.72-36.83-12.19-14.18-32.13-18.91-50.49-17.42h0Z"/>
+</svg>

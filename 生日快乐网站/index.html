@@ -665,6 +665,218 @@
                 font-size: 1.5rem;
             }
         }
+
+        /* 音乐启动提示 */
+        .music-prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            cursor: pointer;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .music-prompt.hidden {
+            animation: fadeOut 0.5s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .music-prompt-content {
+            text-align: center;
+            color: white;
+            animation: pulsePrompt 2s ease-in-out infinite;
+        }
+
+        @keyframes pulsePrompt {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+        .music-note {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .music-prompt-content p {
+            font-family: 'Ma Shan Zheng', 'Microsoft YaHei', sans-serif;
+            font-size: 1.5rem;
+            margin: 10px 0;
+            letter-spacing: 3px;
+        }
+
+        .prompt-sub {
+            font-size: 1rem !important;
+            opacity: 0.8;
+        }
+        .flags {
+            position: fixed;
+            top: 130px;
+            left: 50%;
+           
+            transform: translateX(-50%) scale(4);
+            width: 120px;
+            height: auto;
+            z-index: 500;
+            pointer-events: none;
+            animation: floatFlags 3s ease-in-out infinite;
+        }
+
+        /* 轮播图样式 */
+        .carousel-container {
+            max-width: 90%;
+            width: 100%;
+            position: relative;
+            animation: zoomIn 0.8s ease-out;
+            /* 磨砂玻璃效果 */
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            border-radius: 20px;
+            padding: 25px 20px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3), 
+                        0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .carousel-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(255, 182, 193, 0.4), 
+                        0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto; 
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 左右切换按钮 */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #FF69B4;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+
+        .carousel-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        /* 指示器 */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .indicator-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 105, 180, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator-dot.active {
+            background: #FF69B4;
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        .indicator-dot:hover {
+            background: rgba(255, 105, 180, 0.6);
+        }
+
+        /* 照片计数器 */
+        .carousel-counter {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* 响应式：移动端优化 */
+        @media (max-width: 768px) {
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -673,18 +885,18 @@
     <div class="ribbon-bottom"></div>
     <div class="ribbon-left"></div>
     <div class="ribbon-right"></div>
-
+    <img src = "assets/彩带.png" class="flags">
     <!-- 音乐控制器 -->
     <div class="music-control" id="musicControl">
         <span class="music-icon">🎵</span>
     </div>
     <!-- 封面音乐 -->
     <audio id="coverMusic">
-        <source src="assets/生日快乐.mp3" type="audio/mpeg">
+        <source src="assets/生日快乐.MP3" type="audio/mpeg">
     </audio>
     <!-- 背景音乐 -->
     <audio id="bgMusic" loop>
-        <source src="assets/大城小爱.mp3" type="audio/mpeg">
+        <source src="assets/大城小爱.MP3" type="audio/mpeg">
     </audio>
     <!-- 烟花音效 -->
     <audio id="fireworksSound">
@@ -694,6 +906,14 @@
     <div class="scroll-container">
         <!-- 第1屏：封面 -->
         <section class="cover">
+            <!-- 音乐启动提示 -->
+            <div class="music-prompt" id="musicPrompt">
+                <div class="music-prompt-content">
+                    <span class="music-note"></span>
+                    <p>点击屏幕任意位置</p>
+                    <p class="prompt-sub">开启体验</p>
+                </div>
+            </div>
             <img src="assets/生日快乐.svg" alt="生日快乐" class="title-svg">
             <span class="subtitle-en">HAPPY BIRTHDAY</span>
             <p>今天为你准备了一份特别的礼物</p>
@@ -710,8 +930,8 @@
         <!-- 第2屏：开场白 -->
         <section class="intro">
             <div class="intro-text">
-                又是一年，时光匆匆<br><br>
-                这一年里，我们一起经历了好多美好的瞬间<br><br>
+                时光匆匆<br><br>
+                与你在一起的半年里，我们一起经历了好多美好的瞬间<br><br>
                 今天，想用这些照片<br>
                 和你一起重温我们的故事... 
             </div>
@@ -885,8 +1105,35 @@
 
         <!-- 第18屏：偷偷摄影 -->
         <section class="photo-section">
-            <div class="photo-container">
-                <img src="assets/偷偷摄影.JPG" alt="偷偷摄影" loading="lazy">
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack2">
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IDG_20250927_193937_710.JPG" alt="偷偷摄影1" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IDG_20251002_145259_093.JPG" alt="偷偷摄影2" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IDG_20251003_113328_347.JPG" alt="偷偷摄影3" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IMG_0298.jpg" alt="偷偷摄影4" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IMG_0299.jpg" alt="偷偷摄影5" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IMG_0300.jpg" alt="偷偷摄影6" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/secretToken/IMG_9973.jpg" alt="偷偷摄影7" loading="lazy">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" id="prevBtn2" aria-label="上一张">❮</button>
+                    <button class="carousel-btn next" id="nextBtn2" aria-label="下一张">❯</button>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators2"></div>
                 <div class="photo-caption">
                     偷偷拍下你的样子<br>
                     想把你的每个瞬间都记录下来 
@@ -905,7 +1152,50 @@
             </div>
         </section>
 
-        <!-- 第20屏：恶搞2 -->
+       
+
+        <!-- 第20屏：天柱山之旅 -->
+        <section class="photo-section">
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/单人照片.JPG" alt="天柱山单人照" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/单人照片2.JPG" alt="天柱山单人照2" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/单人照片3.JPG" alt="天柱山单人照3" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/在石头间的照片.JPG" alt="石头间的照片" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/广角照片.JPG" alt="天柱山广角" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/手托着后方的大石头.JPG" alt="手托大石头" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/手握着大石头.JPG" alt="手握大石头" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/TianzhuMt/搞怪的照片.JPG" alt="搞怪照片" loading="lazy">
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" id="prevBtn" aria-label="上一张">❮</button>
+                    <button class="carousel-btn next" id="nextBtn" aria-label="下一张">❯</button>
+                </div>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
+                <div class="photo-caption">
+                    天柱山之旅<br>
+                    与你一起登高望远<br>
+                    看遍山河壮丽，最美的依然是你
+                </div>
+            </div>
+        </section>
+         <!-- 第20屏：恶搞2 -->
         <section class="photo-section">
             <div class="photo-container">
                 <img src="assets/恶搞2.jpg" alt="恶搞2" loading="lazy">
@@ -916,7 +1206,7 @@
             </div>
         </section>
 
-        <!-- 第21屏：生日祝福 -->
+        <!-- 第22屏：生日祝福 -->
         <section class="blessing">
             <div class="blessing-content">
                 <h2>生日快乐，我最爱的人</h2>
@@ -965,41 +1255,60 @@
         const coverMusic = document.getElementById('coverMusic');
         const bgMusic = document.getElementById('bgMusic');
         const musicControl = document.getElementById('musicControl');
+        const musicPrompt = document.getElementById('musicPrompt');
         let isPlaying = false;
         let currentMusic = 'cover'; // 'cover' 或 'background'
         let coverMusicStarted = false; // 标记封面音乐是否已开始
+        let userInteracted = false; // 标记用户是否已交互
 
-        // 尝试在页面加载后自动播放封面音乐
-        window.addEventListener('load', function() {
-            coverMusic.play().then(() => {
-                console.log('封面音乐自动播放成功');
-                musicControl.classList.add('playing');
-                isPlaying = true;
-                coverMusicStarted = true;
-            }).catch(e => {
-                console.log('封面音乐需要用户交互才能播放');
-                // 不执行任何操作，等待用户点击封面或音乐按钮
-            });
-        });
-
-        // 监听封面区域的点击，启动封面音乐
-        const coverSection = document.querySelector('.cover');
-        coverSection.addEventListener('click', function(e) {
-            // 如果点击的不是按钮且封面音乐还未开始，则播放
-            if (!coverMusicStarted && !e.target.closest('.start-button')) {
+        // 全屏提示点击启动音乐
+        musicPrompt.addEventListener('click', function() {
+            if (!userInteracted) {
+                userInteracted = true;
+                
+                // 尝试播放封面音乐
                 coverMusic.play().then(() => {
                     console.log('封面音乐开始播放');
                     musicControl.classList.add('playing');
                     isPlaying = true;
                     coverMusicStarted = true;
-                }).catch(err => console.log('播放失败:', err));
+                    currentMusic = 'cover';
+                    
+                    // 隐藏提示
+                    musicPrompt.classList.add('hidden');
+                    setTimeout(() => {
+                        musicPrompt.style.display = 'none';
+                    }, 500);
+                }).catch(e => {
+                    console.log('播放失败:', e);
+                    // 即使失败也隐藏提示
+                    musicPrompt.classList.add('hidden');
+                    setTimeout(() => {
+                        musicPrompt.style.display = 'none';
+                    }, 500);
+                });
             }
         });
+
+        // 移除旧的自动播放代码
+        // window.addEventListener('load', ...) 已删除
+
+        // 移除封面区域点击启动音乐的代码（已由全屏提示处理）
+        // coverSection.addEventListener('click', ...) 已删除
 
         // 开启生日礼按钮
         const startButton = document.getElementById('startButton');
 
         startButton.addEventListener('click', function() {
+            // 如果用户还未交互，先启动音乐
+            if (!userInteracted) {
+                userInteracted = true;
+                musicPrompt.classList.add('hidden');
+                setTimeout(() => {
+                    musicPrompt.style.display = 'none';
+                }, 500);
+            }
+            
             // 如果封面音乐还未开始，先播放一下再切换（确保用户交互）
             if (!coverMusicStarted) {
                 coverMusic.play().then(() => {
@@ -1098,7 +1407,7 @@
                     clearInterval(timer);
                     element.classList.remove('typing');
                 }
-            }, 100); // 每50毫秒显示一个字符
+            }, 70); // 每50毫秒显示一个字符
         }
 
         // 视差滚动效果
@@ -1232,6 +1541,167 @@
                 }, 2500); // 与动画时长匹配
             }
         }
+
+        // ===== 轮播图功能 =====
+        // 第一个轮播图（天柱山）
+        const carouselTrack = document.getElementById('carouselTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorsContainer = document.getElementById('carouselIndicators');
+
+        let currentIndex = 0;
+        const slides = carouselTrack.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        // 创建指示器
+        function createIndicators() {
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'indicator-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                indicatorsContainer.appendChild(dot);
+            }
+        }
+
+        // 更新轮播图位置
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
+            carouselTrack.style.transform = `translateX(${offset}%)`;
+            
+            // 更新指示器
+            const dots = indicatorsContainer.querySelectorAll('.indicator-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // 上一张
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        // 下一张
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        // 跳转到指定幻灯片
+        function goToSlide(index) {
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        // 绑定事件
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // 支持触摸滑动
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carouselTrack.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carouselTrack.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50; // 最小滑动距离
+            if (touchStartX - touchEndX > swipeThreshold) {
+                nextSlide(); // 向左滑动，显示下一张
+            } else if (touchEndX - touchStartX > swipeThreshold) {
+                prevSlide(); // 向右滑动，显示上一张
+            }
+        }
+
+        // 初始化指示器
+        createIndicators();
+
+        // ===== 第二个轮播图功能（偷偷摄影） =====
+        const carouselTrack2 = document.getElementById('carouselTrack2');
+        const prevBtn2 = document.getElementById('prevBtn2');
+        const nextBtn2 = document.getElementById('nextBtn2');
+        const indicatorsContainer2 = document.getElementById('carouselIndicators2');
+
+        let currentIndex2 = 0;
+        const slides2 = carouselTrack2.querySelectorAll('.carousel-slide');
+        const totalSlides2 = slides2.length;
+
+        // 创建指示器
+        function createIndicators2() {
+            for (let i = 0; i < totalSlides2; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'indicator-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide2(i));
+                indicatorsContainer2.appendChild(dot);
+            }
+        }
+
+        // 更新轮播图位置
+        function updateCarousel2() {
+            const offset = -currentIndex2 * 100;
+            carouselTrack2.style.transform = `translateX(${offset}%)`;
+            
+            // 更新指示器
+            const dots = indicatorsContainer2.querySelectorAll('.indicator-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex2);
+            });
+        }
+
+        // 上一张
+        function prevSlide2() {
+            currentIndex2 = (currentIndex2 - 1 + totalSlides2) % totalSlides2;
+            updateCarousel2();
+        }
+
+        // 下一张
+        function nextSlide2() {
+            currentIndex2 = (currentIndex2 + 1) % totalSlides2;
+            updateCarousel2();
+        }
+
+        // 跳转到指定幻灯片
+        function goToSlide2(index) {
+            currentIndex2 = index;
+            updateCarousel2();
+        }
+
+        // 绑定事件
+        prevBtn2.addEventListener('click', prevSlide2);
+        nextBtn2.addEventListener('click', nextSlide2);
+
+        // 支持触摸滑动
+        let touchStartX2 = 0;
+        let touchEndX2 = 0;
+
+        carouselTrack2.addEventListener('touchstart', (e) => {
+            touchStartX2 = e.changedTouches[0].screenX;
+        });
+
+        carouselTrack2.addEventListener('touchend', (e) => {
+            touchEndX2 = e.changedTouches[0].screenX;
+            handleSwipe2();
+        });
+
+        function handleSwipe2() {
+            const swipeThreshold = 50; // 最小滑动距离
+            if (touchStartX2 - touchEndX2 > swipeThreshold) {
+                nextSlide2(); // 向左滑动，显示下一张
+            } else if (touchEndX2 - touchStartX2 > swipeThreshold) {
+                prevSlide2(); // 向右滑动，显示上一张
+            }
+        }
+
+        // 初始化指示器
+        createIndicators2();
     </script>
 </body>
 </html>
